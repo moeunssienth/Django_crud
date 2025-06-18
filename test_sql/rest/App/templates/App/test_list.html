@@ -1,0 +1,42 @@
+{% extends "App/base.html" %}
+
+
+
+ {%block content%}
+ <table class= "table table-borderers">
+     <thead class="border-bottom font-weight-bold">
+         <tr>
+             <td>Full Name</td>
+             <td>Mobile</td>
+             <td>Position</td>
+             <td>
+                  <a href="{% url 'test_insert'%}" class="btn btn-outline-success ">
+                       <i class="fas fa-plus"></i>Add New
+                  </a>
+                
+                 
+             </td>
+         </tr>
+     </thead>
+     <tbody>
+         {% for test in test_list %}
+         <tr>
+             <td>{{ test.fullname }}</td>
+             <td>{{ test.mobile }}</td>
+             <td>{{ test.position }}</td>
+             <td>
+                    <a href="{% url 'test_update' test.id %}" class="btn btn-outline-primary">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                   <form action="{% url 'test_delete' test.id %}" method="post" style="display:inline;" class ="d-inline">
+                       {% csrf_token %}
+                       <button type="submit" class="btn btn-outline-danger">
+                           <i class="fas fa-trash-alt"></i> Delete
+                       </button>
+             </td>
+         </tr>
+         {% endfor %}
+     </tbody>
+ </table>
+
+{% endblock content%}
